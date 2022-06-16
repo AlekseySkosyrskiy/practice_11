@@ -5,7 +5,7 @@ pipeline {
         stage('Check_http') {
             steps   {
 		    script  {
-		    final String response = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://51.250.94.187:9889/' | cut -d ' ' -f 1", returnStdout: true).trim()                    
+		    final String response = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://51.250.94.187:9889/'", returnStdout: true).trim()                    
 			def str2 = "200"
 			    if( response == str2 ) {
      				println "Got 200! All done!"
