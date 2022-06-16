@@ -4,12 +4,7 @@ pipeline {
     stages {
         stage('Check_http') {
             steps {
-                //curl -I http://51.250.94.187:9889/ | head -n 1 | cut -d$' ' -f2
-                int status = sh(script: "curl -sLI -w '%{http://51.250.94.187:9889/}' $url -o /dev/null", returnStdout: true)
-
-                if (status != 200 && status != 201) {
-                    error("Returned status code = $status when calling $url")
-                }
+                echo 'Check_http'
             }
         }
         stage('Check_md5') {
@@ -23,4 +18,14 @@ pipeline {
             }
         }
     }
+}
+1)	Check_http
+stage('Check_http') {
+  steps {
+      int status = sh(script: "curl -sLI -w '%{http://51.250.94.187:9889/}' $url -o /dev/null", returnStdout: true)
+
+                if (status != 200 && status != 201) {
+                    error("Returned status code = $status when calling $url")
+                }
+	}
 }
