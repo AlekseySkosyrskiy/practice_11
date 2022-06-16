@@ -31,7 +31,7 @@ pipeline {
             steps {
 		    sh '''#!/bin/bash
 			a=sudo md5sum "/home/sf-test/practice_11/index.html" | awk '{ print $1 }'
-			b=curl http://51.250.94.187:9889/ | md5sum | awk '{ print $1 }'
+			b= sh "curl -s http://51.250.94.187:9889/ | md5sum | awk '{ print $1 }'"
 			if [$a == $b]
 			then
 			echo "All done!"
