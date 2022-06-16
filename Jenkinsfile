@@ -5,7 +5,6 @@ pipeline {
 	stage('Deploy') {
 		
             steps {
-		    notifyStarted()
 		    sh '''#!/bin/bash
 		    	cd practice_11
 			git pull
@@ -25,6 +24,7 @@ pipeline {
      				catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
 			{
                     		echo "Not work!"
+				notifyFailed()
                 	}
    			}
 		    }
@@ -43,6 +43,7 @@ pipeline {
      				catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
 			{
                     		echo "MD5 amount did not match!"
+				notifyFailed()
                 	}
    			}
 		    }
@@ -54,6 +55,7 @@ pipeline {
 		    docker stop jenkins-practice
 		    docker rm jenkins-practice
 		    '''
+		    notifySuccessful()
             }
         }
     }
@@ -61,4 +63,10 @@ pipeline {
 def notifyStarted() {
   // send to Slack
   slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+}
+def notifySuccessful() {
+  slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+}
+def notifyFailed() {
+  slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
 }
