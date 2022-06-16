@@ -4,9 +4,7 @@ pipeline {
     stages {
         stage('Check_http') {
             steps   {
-		    script  {
-		    curl -I "http://51.250.94.187:9889/" | head -n 1 | cut -d$' ' -f2
-	    	        }
+		    sudo /home/sf-test/check_site.sh
 	    }
         }
         
