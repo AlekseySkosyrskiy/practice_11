@@ -14,6 +14,8 @@ do
     break
   else
     echo "Got $STATUS :( Not done yet..."
+    fi
+  sleep 10
 done
 	   '''
 	    }
