@@ -38,7 +38,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-		    
+		    echo '123'
             }
         }
     }
