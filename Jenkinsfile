@@ -32,12 +32,15 @@ pipeline {
         stage('Deploy') {
             steps {
 		    sh '''#!/bin/bash
-		if ["md5sum /home/sf-test/practice_11/index.html | awk '{ print $1 }'"=$"curl -s http://51.250.94.187:9889/ | md5sum | awk '{ print $1 }'"]
-		then
-  		echo "All done!"
-		else
-  		echo "MD5 amount did not match!"
-		fi
+			a=md5sum "/home/sf-test/practice_11/index.html"
+			b=curl -s "http://51.250.94.187:9889/" | md5sum
+			if [$a == $b]
+			then
+			echo "All done!"
+			else
+			echo "MD5 amount did not match!"
+			catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')			
+			fi
 		'''
             }
         }
