@@ -4,10 +4,11 @@ pipeline {
     stages {
         stage('Check_http') {
             steps   {
-		    #!/bin/bash
+		    script  {
 		    a=http://51.250.94.187:9889/
 		    curl -I $a | head -n 1 | cut -d$' ' -f2
 	    	        }
+	    }
         }
         
         stage('Check_md5') {
