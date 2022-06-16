@@ -5,8 +5,6 @@ pipeline {
         stage('Check_http') {
             steps   {
 		    sh '''#!/bin/bash
-
-while true
 do
   STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://51.250.94.187:9889/)
   if [ $STATUS -eq 200 ]; then
@@ -15,7 +13,6 @@ do
   else
     echo "Got $STATUS :( Not done yet..."
     fi
-  sleep 10
 done
 	   '''
 	    }
@@ -34,7 +31,16 @@ done
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+		    sh '''#!/bin/bash
+                a=md5sum index.html | awk '{ print $1 }'
+		b=curl -s http://51.250.94.187:9889/ | md5sum | awk '{ print $1 }'
+		if $a=$b
+		then
+  		echo "All done!"
+		else
+  		echo "MD5 amount did not match!"
+		fi
+		'''
             }
         }
     }
