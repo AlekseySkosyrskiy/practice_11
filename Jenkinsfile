@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Check_http') {
             steps   {
-		        curl -I http://51.250.94.187:9889/ | head -n 1 | cut -d$' ' -f2
+		        curl -I 'http://51.250.94.187:9889/' | head -n 1 | cut -d$' ' -f2
 	    	        }
         }
         
