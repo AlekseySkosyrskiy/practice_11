@@ -19,11 +19,17 @@ pipeline {
         stage('Check_md5') {
             steps {
 		    script  {
-                final String url = "http://51.250.94.187:9889/"
+		    final String md5 = sh(script: "sudo md5sum '/home/sf-test/practice_11/index.html'", returnStdout: true).trim()
+                    final String url = "http://51.250.94.187:9889/"
 
                     final String response = sh(script: "curl -s $url | md5sum", returnStdout: true).trim()
 
                     echo response
+	if( md5 == response ) {
+     println "same"
+   }else{
+     println "not same"
+   }
 		    }
             }
         }
