@@ -7,7 +7,7 @@ pipeline {
 		    sh '''#!/bin/bash
 		    	cd practice_11
 			git clone https://github.com/AlekseySkosyrskiy/practice_11
-			docker run -d --name nginx-practice -p 9889:80 --mount 'type=volume,src=app,dst=/usr/share/nginx/html' nginx
+			docker run -d --name jenkins-practice -p 9889:80 --mount 'type=volume,src=app,dst=/usr/share/nginx/html' nginx
 			'''
             }
         }
