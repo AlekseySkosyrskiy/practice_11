@@ -37,11 +37,10 @@ pipeline {
 			if [$a == $b]
 			then
 			echo "All done!"
-			else
-			echo "MD5 amount did not match!"
+			else			
 			catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
 			{
-                    		sh "exit 1"
+                    		echo "MD5 amount did not match!"
                 	}
 			fi
 		'''
