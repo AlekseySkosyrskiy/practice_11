@@ -3,8 +3,9 @@ pipeline {
 
     stages {
 	stage('Deploy') {
-		notifyStarted()
+		
             steps {
+		    notifyStarted()
 		    sh '''#!/bin/bash
 		    	cd practice_11
 			git pull
