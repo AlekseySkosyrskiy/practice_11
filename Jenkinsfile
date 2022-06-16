@@ -32,8 +32,8 @@ pipeline {
         stage('Deploy') {
             steps {
 		    sh '''#!/bin/bash
-			a=md5sum "/home/sf-test/practice_11/index.html"
-			b=curl -s "http://51.250.94.187:9889/" | md5sum
+			a=sudo md5sum "/home/sf-test/practice_11/index.html"
+			b=curl "http://51.250.94.187:9889/" | md5sum
 			if [$a == $b]
 			then
 			echo "All done!"
