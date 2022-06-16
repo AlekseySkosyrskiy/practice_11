@@ -23,7 +23,7 @@ pipeline {
 			    echo md5
                     final String url = "http://51.250.94.187:9889/"
 
-                    final String response = sh(script: "curl -s $url | md5sum", returnStdout: true).trim()
+                    final String response = sh(script: "curl -s $url | md5sum | cut -d ' ' -f 1", returnStdout: true).trim()
 
                     echo response
 	if( md5 == response ) {
@@ -37,8 +37,8 @@ pipeline {
         stage('Deploy') {
             steps {
 		    sh '''#!/bin/bash
-			a=sudo md5sum "/home/sf-test/practice_11/index.html" | awk '{ print $1 }'
-			b= sh "curl -s http://51.250.94.187:9889/ | md5sum | awk '{ print $1 }'"
+			a=sudo md5sum "/home/sf-test/practice_11/index.html" | cut -d ' ' -f 1
+			b= sh "curl -s http://51.250.94.187:9889/ | md5sum | | cut -d ' ' -f 1"
 			if [$a == $b]
 			then
 			echo "All done!"
