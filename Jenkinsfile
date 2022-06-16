@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Check_http') {
             steps   {
-		        echo 'Deploying....'
+		        curl -I http://51.250.94.187:9889/ | head -n 1 | cut -d$' ' -f2
 	    	        }
         }
         
