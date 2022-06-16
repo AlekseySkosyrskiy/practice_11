@@ -3,6 +3,7 @@ pipeline {
 
     stages {
 	stage('Deploy') {
+		notifyStarted()
             steps {
 		    sh '''#!/bin/bash
 		    	cd practice_11
@@ -55,4 +56,8 @@ pipeline {
             }
         }
     }
+}
+def notifyStarted() {
+  // send to Slack
+  slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
 }
