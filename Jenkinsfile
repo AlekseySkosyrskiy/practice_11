@@ -4,7 +4,9 @@ pipeline {
     stages {
         stage('Check_http') {
             steps   {
-		    sudo /home/sf-test/check_site.sh
+		    sh '''#!/bin/bash
+                 curl -s -o /dev/null -w "%{http_code}" http://51.250.94.187:9889/
+         '''
 	    }
         }
         
