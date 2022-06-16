@@ -49,8 +49,8 @@ pipeline {
         stage('Remove') {
             steps {
 		    sh '''#!/bin/bash
-		    docker stop nginx-practice
-		    docker rm nginx-practice
+		    docker stop jenkins-practice
+		    docker rm jenkins-practice
 		    '''
             }
         }
