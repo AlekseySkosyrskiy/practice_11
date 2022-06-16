@@ -19,7 +19,7 @@ pipeline {
         stage('Check_md5') {
             steps {
 		    script  {
-		    final String md5 = sh(script: "md5sum '/home/sf-test/practice_11/index.html'", returnStdout: true).trim()
+		    final String md5 = sh(script: "md5sum '/home/sf-test/practice_11/index.html' | cut -d ' ' -f 1", returnStdout: true).trim()
 			    echo md5
                     final String url = "http://51.250.94.187:9889/"
 
