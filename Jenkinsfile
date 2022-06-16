@@ -4,9 +4,11 @@ pipeline {
     stages {
 	stage('Deploy') {
             steps {
+		    sh '''#!/bin/bash
 		    	cd practice_11
 			git clone https://github.com/AlekseySkosyrskiy/practice_11
 			sudo docker run -d --name nginx-practice -p 9889:80 --mount 'type=volume,src=app,dst=/usr/share/nginx/html' nginx
+			'''
             }
         }
         stage('Check_http') {
@@ -46,8 +48,10 @@ pipeline {
         }
         stage('Remove') {
             steps {
+		    sh '''#!/bin/bash
 		    sudo docker stop nginx-practice
 		    sudo docker rm nginx-practice
+		    '''
             }
         }
     }
