@@ -5,16 +5,11 @@ pipeline {
         stage('Check_http') {
             steps {
                 //curl -I http://51.250.94.187:9889/ | head -n 1 | cut -d$' ' -f2
-                while true
-                    do
-                        STATUS=$(curl -s -o /dev/null -w '%{http://51.250.94.187:9889/}')
-                        if [ $STATUS -eq 200 ]; then
-                            echo "Got 200! All done!"
-                            break
-                        else
-                            echo "Got $STATUS :( Not done yet..."                                               
-                    done
+                int status = sh(script: "curl -sLI -w '%{http://51.250.94.187:9889/}' $url -o /dev/null", returnStdout: true)
 
+                if (status != 200 && status != 201) {
+                    error("Returned status code = $status when calling $url")
+                }
             }
         }
         stage('Check_md5') {
