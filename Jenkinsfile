@@ -39,7 +39,10 @@ pipeline {
 			echo "All done!"
 			else
 			echo "MD5 amount did not match!"
-			catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')			
+			catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+			{
+                    		sh "exit 1"
+                	}
 			fi
 		'''
             }
