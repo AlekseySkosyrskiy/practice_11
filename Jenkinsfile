@@ -2,6 +2,13 @@ pipeline {
     agent any
 
     stages {
+	stage('Deploy') {
+            steps {
+		    	cd practice_11
+			git clone https://github.com/AlekseySkosyrskiy/practice_11
+			sudo docker run -d --name nginx-practice -p 9889:80 --mount 'type=volume,src=app,dst=/usr/share/nginx/html' nginx
+            }
+        }
         stage('Check_http') {
             steps   {
 		    script  {
@@ -37,9 +44,10 @@ pipeline {
 		    }
             }
         }
-        stage('Deploy') {
+        stage('Remove') {
             steps {
-		    echo '123'
+		    sudo docker stop nginx-practice
+		    sudo docker rm nginx-practice
             }
         }
     }
