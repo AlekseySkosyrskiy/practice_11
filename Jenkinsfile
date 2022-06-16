@@ -21,7 +21,7 @@ pipeline {
 		    script  {
                 final String url = "http://51.250.94.187:9889/"
 
-                    final String response = sh(script: "curl -s $url | md5sum | awk '{ print $1 }'", returnStdout: true).trim()
+                    final String response = sh(script: "curl -s $url | md5sum", returnStdout: true).trim()
 
                     echo response
 		    }
